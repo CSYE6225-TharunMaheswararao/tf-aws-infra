@@ -11,7 +11,7 @@ resource "aws_subnet" "public_subnets" {
 
   vpc_id            = aws_vpc.main[each.value.vpc_key].id
   cidr_block        = each.value.cidr
-  availability_zone = varr.availability_zones[each.value.index % length(var.availability_zones)]
+  availability_zone = var.availability_zones[each.value.index % length(var.availability_zones)]
 
   tags = {
     Name = "tf-public-subnet-${each.value.vpc_key}-${each.value.index + 1}"
