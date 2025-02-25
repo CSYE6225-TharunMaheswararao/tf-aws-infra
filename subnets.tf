@@ -1,4 +1,4 @@
-resource "aws_subnet" "public_subnets" {
+  resource "aws_subnet" "public_subnets" {
   for_each = { for pair in flatten([
     for k, v in var.vpcs : [
       for cidr_index, cidr in v.public_subnet_cidrs : {
