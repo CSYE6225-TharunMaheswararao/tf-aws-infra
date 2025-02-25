@@ -1,4 +1,4 @@
-  resource "aws_subnet" "public_subnets" {
+resource "aws_subnet" "public_subnets" {
   for_each = { for pair in flatten([
     for k, v in var.vpcs : [
       for cidr_index, cidr in v.public_subnet_cidrs : {
@@ -11,7 +11,7 @@
 
   vpc_id            = aws_vpc.main[each.value.vpc_key].id
   cidr_block        = each.value.cidr
-  availability_zone = var.availability_zones[each.value.index % length(var.availability_zones)]
+  availability_zone = varr.availability_zones[each.value.index % length(var.availability_zones)]
 
   tags = {
     Name = "tf-public-subnet-${each.value.vpc_key}-${each.value.index + 1}"
